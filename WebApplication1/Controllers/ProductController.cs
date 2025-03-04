@@ -4,12 +4,17 @@
 
 namespace WebApplication1.Controllers
 {
-   
+
     [Route("api/[controller]")]
     [ApiController]
     public class ProductController : ControllerBase
-    { 
-        static List<Product> products = new List<Product>();
+    {
+        static List<Product> products = new List<Product>()
+        {
+            new Product { Id = 1,Name="Bisli",Description="cfghcdtk",CategoryProduct=new Category{Id=1,Name="חטיפים" }},
+            new Product { Id = 2,Name="bamba",Description="cfghcdtk",CategoryProduct=new Category{Id=1,Name="חטיפים" }},
+            new Product { Id = 1,Name="Cola",Description="cfghcdtk",CategoryProduct=new Category{Id=2,Name="שתייה" }},
+        };
 
         // GET: api/<ProductController>
         [HttpGet]
@@ -22,7 +27,7 @@ namespace WebApplication1.Controllers
         [HttpGet("{id}")]
         public Product Get(int id)
         {
-            return products.FirstOrDefault(u=>u.Id==id);
+            return products.FirstOrDefault(u => u.Id == id);
 
         }
 
@@ -34,6 +39,22 @@ namespace WebApplication1.Controllers
             return value;
         }
 
+
+        [HttpPost("createDataSave/{path}")]
+        public void Post(string path)
+        {
+            using (StreamWriter sw = new StreamWriter(path))
+            {
+              foreach (Product product in products)
+                {
+               sw.Write(product.Name);
+               sw.Write(product.Description);
+               sw.Write(product.Price);
+               sw.WriteLine();
+                }
+            }
+        }
+
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public Product Put(int id, [FromBody] Product value)
@@ -41,17 +62,23 @@ namespace WebApplication1.Controllers
             int index=products.FindIndex(u=>u.Id==id);
             products[index].Name= value.Name;
             products[index].Description= value.Description;
+            products[index].Price = value.Price;
             products[index].CategoryProduct = value.CategoryProduct;
             return products[index];
         }
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public Product Delete(int id)
+        public string Delete(int id)
         {
             int index = products.FindIndex(u => u.Id == id);
             products.RemoveAt(index);
-            return products[index];
+            return "sucess";
+        }
+        [HttpGet("find") ]
+        public List<Product> Find(string query) 
+        { Console.WriteLine(query);
+            return null;
         }
     }
 }

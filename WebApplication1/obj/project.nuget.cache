@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "zV/qY8w9QIwPRitqeUwOOracOvl9ZA/5nyZcHVBOtYwwXYRPkeD4JzJRNhrSP5pG2DRgGPJ3AxAt/q3wRrI0wg==",
+  "dgSpecHash": "t9U6TdooqO39GvdMd17jAS8e7U9pBLAdyvkhAH3fM5e8fQXxoaZ6bwUUzadl4URQedj6jEeDfJdyp9w074Sajw==",
   "success": true,
-  "projectFilePath": "M:\\PH\\kt-14\\tichnut\\Tsivya Cohen\\C# מתקדם\\תרגילים\\Lesson15\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "M:\\PH\\kt-14\\tichnut\\Tsivya Cohen\\C# מתקדם\\תרגילים\\Lesson15\\HW-in-C-\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\seminar\\.nuget\\packages\\microsoft.aspnetcore.openapi\\7.0.10\\microsoft.aspnetcore.openapi.7.0.10.nupkg.sha512",
     "C:\\Users\\seminar\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
