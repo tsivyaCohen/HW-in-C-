@@ -18,16 +18,24 @@ namespace WebApplication1.Controllers
 
         // GET: api/<ProductController>
         [HttpGet]
-        public List<Product> Get()
+        public IActionResult Get()
         {
-            return products;
+            return Ok(products);
         }
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public Product Get(int id)
+        public IActionResult Get(int id)
         {
-            return products.FirstOrDefault(u => u.Id == id);
+            try
+            {
+                Product p = products.FirstOrDefault(u => u.Id == id);
+                return Ok(p);
+            }
+            catch (Exception ex)
+            {
+                return NotFound("Id is not valid");
+            }
 
         }
 
@@ -41,27 +49,35 @@ namespace WebApplication1.Controllers
 
 
         [HttpPost("createDataSave/{path}")]
-        public void Post(string path)
+        public IActionResult Post(string path)
         {
+            if (!path.Contains(".txt")){
+                return BadRequest("you should provide txt file");
+            }
+
+
             using (StreamWriter sw = new StreamWriter(path))
             {
-              foreach (Product product in products)
+                foreach (Product product in products)
                 {
-               sw.Write(product.Name);
-               sw.Write(product.Description);
-               sw.Write(product.Price);
-               sw.WriteLine();
+                    sw.Write(product.Name);
+                    sw.Write(product.Description);
+                    sw.Write(product.Price);
+                    sw.WriteLine();
                 }
             }
+            return Ok("success");
+
+
         }
 
         // PUT api/<ProductController>/5
         [HttpPut("{id}")]
         public Product Put(int id, [FromBody] Product value)
         {
-            int index=products.FindIndex(u=>u.Id==id);
-            products[index].Name= value.Name;
-            products[index].Description= value.Description;
+            int index = products.FindIndex(u => u.Id == id);
+            products[index].Name = value.Name;
+            products[index].Description = value.Description;
             products[index].Price = value.Price;
             products[index].CategoryProduct = value.CategoryProduct;
             return products[index];
@@ -75,9 +91,10 @@ namespace WebApplication1.Controllers
             products.RemoveAt(index);
             return "sucess";
         }
-        [HttpGet("find") ]
-        public List<Product> Find(string query) 
-        { Console.WriteLine(query);
+        [HttpGet("find")]
+        public List<Product> Find(string query)
+        {
+            Console.WriteLine(query);
             return null;
         }
     }
